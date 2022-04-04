@@ -8,7 +8,11 @@ const addNote = function(title,body){
 
     const duplicateNotes = notes.filter((note)=> note.title === title)
 
-    if(duplicateNotes.length === 0) {
+    if(title===""){
+        console.log(chalk.yellow.inverse('please provide title'));
+    }else if(body===""){
+        console.log(chalk.yellow.inverse('please provide body'));
+    } else if(duplicateNotes.length === 0) {
         notes.push({
             title: title,
             body: body      
@@ -19,6 +23,7 @@ const addNote = function(title,body){
     }else{
         console.log(chalk.green.inverse('note title is taken'))
     }
+    
 }
 
 const savenotes = (notes) => {
@@ -53,11 +58,11 @@ const removeNote = (title) => {
 
 const listNotes = () => {
     const notes = loadNotes()
-    console.log(chalk.inverse.blue('your notes: '))
-
+    console.log(chalk.blue('your notes: '))
     notes.forEach((note) => {
-        console.log(note.title)
+        console.log(`=> ${note.title}`)
     })   
+    console.log()
 }
 
 const readNote = (title) => {
@@ -65,8 +70,9 @@ const readNote = (title) => {
     const note = notes.find((note) => note.title === title)
 
     if(note) {
-        console.log(chalk.blue.inverse(note.title))
+        console.log(chalk.blue(`${note.title}:`))
         console.log(note.body)
+        console.log()
     } else {
         console.log(chalk.red.inverse('note not found'))
     }
